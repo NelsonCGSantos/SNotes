@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "nelsoncgsantos",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "${DB_USERNAME}",
+    "password": "${DB_PASSWORD}",
+    "database": "${DB_NAME}",
+    "host": "${DB_HOST}",
+    "dialect": "${DB_DIALECT}"
   },
   "test": {
-    "username": "nelsoncgsantos",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "${TEST_DB_USERNAME}",
+    "password": "${TEST_DB_PASSWORD}",
+    "database": "${TEST_DB_NAME}",
+    "host": "${TEST_DB_HOST}",
+    "dialect": "${TEST_DB_DIALECT}"
   },
   "production": {
-    "username": "nelsoncgsantos",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "${PROD_DB_USERNAME}",
+    "password": "${PROD_DB_PASSWORD}",
+    "database": "${PROD_DB_NAME}",
+    "host": "${PROD_DB_HOST}",
+    "dialect": "${PROD_DB_DIALECT}"
   }
 }

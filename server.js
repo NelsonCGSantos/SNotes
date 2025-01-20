@@ -10,24 +10,32 @@ const noteRoutes = require("./routes/noteRoutes");
 
 const app = express();
 
+// Security & Middleware
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
 
-
+// Base route
 app.get("/", (req, res) => {
   res.send("Welcome to the Secure Notes API!");
 });
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+//Prevent server from starting during tests
+if (process.env.NODE_ENV !== "test") {
+  const PORT = process.env.PORT || 5001;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+//Export app for Jest testing
+module.exports = app;

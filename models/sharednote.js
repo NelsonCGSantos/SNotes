@@ -1,24 +1,45 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+"use strict";
+const { Model, DataTypes } = require("sequelize");
+
+module.exports = (sequelize) => {
   class SharedNote extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // Define associations correctly
+      SharedNote.belongsTo(models.User, {
+        foreignKey: "sharedWithUserId",
+        as: "sharedUser",
+      });
+      SharedNote.belongsTo(models.Note, {
+        foreignKey: "noteId",
+        as: "sharedNote",
+      });
     }
   }
-  SharedNote.init({
-    noteId: DataTypes.INTEGER,
-    sharedWithUserId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'SharedNote',
-  });
+
+  SharedNote.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      noteId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: { model: "Notes", key: "id" },
+      },
+      sharedWithUserId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: { model: "Users", key: "id" },
+      },
+    },
+    {
+      sequelize,
+      modelName: "SharedNote",
+      timestamps: true,
+    }
+  );
+
   return SharedNote;
 };

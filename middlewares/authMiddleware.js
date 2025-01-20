@@ -1,20 +1,27 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/user"); // Sequelize User model
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const authHeader = req.header("Authorization");
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ error: "Access denied. No token provided." });
+      return res
+        .status(401)
+        .json({ error: "Access denied. No token provided." });
     }
 
-  
     const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
 
-   
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    
-    req.user = verified;
+    // Fetch the user from the database using Sequelize
+    const user = await User.findByPk(decoded.id);
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid token. User not found." });
+    }
+
+    req.user = user; // Attach user object to request
     next();
   } catch (error) {
     console.error("JWT Verification Error:", error.message);

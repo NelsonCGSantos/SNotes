@@ -4,7 +4,7 @@ const { Model, DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   class Note extends Model {
     static associate(models) {
-      Note.belongsTo(models.User, { foreignKey: "ownerId", as: "owner" }); // Note has one owner
+      Note.belongsTo(models.User, { foreignKey: "userId", as: "owner" });
       Note.belongsToMany(models.User, {
         through: models.SharedNote,
         foreignKey: "noteId",
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
       },
       title: { type: DataTypes.STRING, allowNull: false },
       content: { type: DataTypes.TEXT, allowNull: false },
-      ownerId: {
+      userId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: { model: "Users", key: "id" },

@@ -1,28 +1,47 @@
 const request = require("supertest");
-const app = require("../server"); // Adjust this if your app is named differently
+const app = require("../server"); // Import the Express app
 
-describe("Authentication", () => {
-  let token;
-
-  it("should sign up a new user", async () => {
-    const res = await request(app)
-      .post("/auth/signup")
-      .send({
-        username: "testUser",
-        email: "test@example.com",
-        password: "password",
-      });
+describe("Authentication Endpoints", () => {
+  it("should signup a new user", async () => {
+    const res = await request(app).post("/api/auth/signup").send({
+      username: "testuser",
+      email: "test@example.com",
+      password: "securepassword",
+    });
 
     expect(res.statusCode).toEqual(201);
+    expect(res.body).toHaveProperty("message");
+    expect(res.body).toHaveProperty("user");
   });
 
-  it("should login and return a JWT token", async () => {
-    const res = await request(app)
-      .post("/auth/login")
-      .send({ email: "test@example.com", password: "password" });
+  it("should not signup with existing email", async () => {
+    const res = await request(app).post("/api/auth/signup").send({
+      username: "testuser",
+      email: "test@example.com",
+      password: "securepassword",
+    });
+
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty("error", "Email or username already exists");
+  });
+
+  it("should login with correct credentials", async () => {
+    const res = await request(app).post("/api/auth/login").send({
+      email: "test@example.com",
+      password: "securepassword",
+    });
 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty("token");
-    token = res.body.token;
+  });
+
+  it("should not login with wrong credentials", async () => {
+    const res = await request(app).post("/api/auth/login").send({
+      email: "test@example.com",
+      password: "wrongpassword",
+    });
+
+    expect(res.statusCode).toEqual(401);
+    expect(res.body).toHaveProperty("error", "Invalid email or password");
   });
 });

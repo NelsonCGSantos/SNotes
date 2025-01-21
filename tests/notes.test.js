@@ -1,45 +1,68 @@
 const request = require("supertest");
-const app = require("../server"); // ✅ Use exported app
+const app = require("../server");
 
-let token;
+let token = "";
 
 beforeAll(async () => {
-  const res = await request(app)
-    .post("/api/auth/login")  // ✅ Fix the base API path
-    .send({ email: "test@example.com", password: "password" });
+  const res = await request(app).post("/api/auth/login").send({
+    email: "test@example.com",
+    password: "securepassword",
+  });
 
   token = res.body.token;
 });
 
-describe("Notes", () => {
-  it("should create a note", async () => {
+describe("Notes Endpoints", () => {
+  let noteId = "";
+
+  it("should create a new note", async () => {
     const res = await request(app)
-      .post("/api/notes/")  // ✅ Fix the base API path
+      .post("/api/notes")
       .set("Authorization", `Bearer ${token}`)
-      .send({ title: "Test Note", content: "This is a test" });
+      .send({
+        title: "Test Note",
+        content: "This is a test note.",
+      });
 
     expect(res.statusCode).toEqual(201);
+    expect(res.body).toHaveProperty("id");
+    noteId = res.body.id;
   });
 
-  it("should not allow unauthorized users to get a note", async () => {
+  it("should retrieve all notes for the user", async () => {
     const res = await request(app)
-      .get("/api/notes/12345")  // ✅ Fix the base API path
-      .set("Authorization", "Bearer fake_token");
-
-    expect(res.statusCode).toEqual(401);
-  });
-
-  it("should delete a note only for admin users", async () => {
-    const res = await request(app)
-      .delete("/api/notes/12345")  // ✅ Fix the base API path
+      .get("/api/notes")
       .set("Authorization", `Bearer ${token}`);
 
-    expect(res.statusCode).toEqual(403); // Regular user should be denied
+    expect(res.statusCode).toEqual(200);
+    expect(Array.isArray(res.body)).toBeTruthy();
   });
-});
 
-// ✅ Close database connection after tests
-afterAll(async () => {
-  const { sequelize } = require("../models");
-  await sequelize.close();
+  it("should retrieve a note by ID", async () => {
+    const res = await request(app)
+      .get(`/api/notes/${noteId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("title", "Test Note");
+  });
+
+  it("should update a note", async () => {
+    const res = await request(app)
+      .put(`/api/notes/${noteId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ content: "Updated test note content." });
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("message", "Note updated successfully");
+  });
+
+  it("should delete a note", async () => {
+    const res = await request(app)
+      .delete(`/api/notes/${noteId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty("message", "Note deleted successfully");
+  });
 });

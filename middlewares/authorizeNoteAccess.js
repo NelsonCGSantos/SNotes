@@ -1,25 +1,29 @@
-const { Note, SharedNote } = require("../models"); // ✅ Import models correctly
+const { Note, SharedNote } = require("../models");
 
 const authorizeNoteAccess = async (req, res, next) => {
   try {
-    console.log("🔍 Checking note with ID:", req.params.noteId);
+    console.log("🔍 Request Params:", req.params); // Log the request parameters
 
-    const note = await Note.findByPk(req.params.noteId);
+    const noteId = req.params.id; // Extract the note ID from route params
+    if (!noteId) {
+      return res.status(400).json({ message: "Missing note ID in request." });
+    }
+
+    const note = await Note.findByPk(noteId);
+    console.log("✅ Found Note:", note); // Log the note result
 
     if (!note) {
       console.log("❌ Note not found!");
       return res.status(404).json({ message: "Note not found" });
     }
 
-    console.log("✅ Note found:", note);
-
-    const isOwner = note.ownerId === req.user.id;
-
+    const isOwner = note.userId === req.user.id;
     const isShared = await SharedNote.findOne({
       where: { noteId: note.id, sharedWithUserId: req.user.id },
     });
+    console.log("🔍 Shared Access Check:", isShared);
 
-    console.log("🔍 Owner:", isOwner, "| Shared:", Boolean(isShared));
+    console.log("🔍 Owner:", isOwner, "| Shared:", Boolean(isShared)); // Log ownership and sharing status
 
     if (isOwner || isShared) {
       return next();

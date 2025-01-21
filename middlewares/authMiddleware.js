@@ -1,5 +1,5 @@
+const { User } = require("../models"); // ✅ Import User correctly from index.js
 const jwt = require("jsonwebtoken");
-const User = require("../models/user"); // Sequelize User model
 
 module.exports = async (req, res, next) => {
   try {
@@ -14,17 +14,21 @@ module.exports = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
 
+    // Debugging log
+    console.log("🔍 Decoded Token:", decoded);
+
     // Fetch the user from the database using Sequelize
     const user = await User.findByPk(decoded.id);
 
     if (!user) {
+      console.log("❌ User not found in DB!");
       return res.status(401).json({ error: "Invalid token. User not found." });
     }
 
     req.user = user; // Attach user object to request
     next();
   } catch (error) {
-    console.error("JWT Verification Error:", error.message);
+    console.error("❌ JWT Verification Error:", error.message);
     return res.status(400).json({ error: "Invalid token" });
   }
 };

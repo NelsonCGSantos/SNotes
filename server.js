@@ -1,5 +1,4 @@
-require('dotenv').config();
-
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -17,26 +16,26 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
-});
-app.use(limiter);
+// Rate limiting to prevent abuse
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per window
+  })
+);
 
-// Base route
-app.get("/", (req, res) => {
-  res.send("Welcome to the Secure Notes API!");
-});
+// Root route
+app.get("/", (req, res) => res.send("Welcome to the Secure Notes API!"));
 
-// Routes
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
 
-//Prevent server from starting during tests
+// Start server unless running tests
 if (process.env.NODE_ENV !== "test") {
   const PORT = process.env.PORT || 5001;
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(`🌱 Server running on port ${PORT}`));
 }
 
-//Export app for Jest testing
+// Export for testing
 module.exports = app;

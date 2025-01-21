@@ -22,10 +22,10 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "Users", // Ensure this matches the name of the Users table
+          model: "Users",
           key: "id",
         },
-        onDelete: "CASCADE", // Delete shared notes if the user is deleted
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,

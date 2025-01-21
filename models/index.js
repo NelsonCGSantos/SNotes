@@ -8,7 +8,7 @@ require("dotenv").config();
 const process = require("process");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require("../config/database")[env] || {}; // ✅ Load database.js instead of config.json
+const config = require("../config/database")[env] || {}; //Load database.js
 const db = {};
 
 let sequelize;
@@ -58,4 +58,4 @@ db.Sequelize = Sequelize;
 
 module.exports = db;
 
-console.log("Loaded models:", Object.keys(db));
+//console.log("Loaded models:", Object.keys(db));

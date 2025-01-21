@@ -6,37 +6,26 @@ const {
   updateNote,
   deleteNote,
   shareNote,
-  searchNotes
+  searchNotes,
 } = require("../controllers/noteController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
 const authorizeNoteAccess = require("../middlewares/authorizeNoteAccess");
-const checkRole = require("../middlewares/checkRole"); //Admin role....
 
 const router = express.Router();
 
 // Apply authentication middleware to all routes
 router.use(authMiddleware);
 
-// Create a new note (Any authenticated user)
-router.post("/", createNote);
+// Notes CRUD operations
+router.post("/", createNote); // Create a note (Authenticated user)
+router.get("/", getNotes); // Retrieve all user notes
+router.get("/search", searchNotes); // Search notes by keyword
+router.get("/:id", authorizeNoteAccess, getNoteById); // Get note by ID
+router.put("/:id", authorizeNoteAccess, updateNote); // Update note
+router.delete("/:id", authorizeNoteAccess, deleteNote); // Delete note
 
-// Get all notes belonging to the authenticated user
-router.get("/", getNotes);
-
-// Search notes by keyword (Only owner or shared users)
-router.get("/search", authMiddleware, searchNotes);
-
-// Get a specific note (Only owner or shared users)
-router.get("/:id", authorizeNoteAccess, getNoteById);
-
-// Update a note (Only owner or shared users)
-router.put("/:id", authorizeNoteAccess, updateNote);
-
-// Delete a note (Only owner & Admins)
-router.delete("/:id", authorizeNoteAccess, deleteNote);
-
-// Share a note with another user (Only owner)
+// Sharing functionality
 router.post("/:id/share", authorizeNoteAccess, shareNote);
 
 module.exports = router;

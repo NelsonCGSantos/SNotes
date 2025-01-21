@@ -5,30 +5,21 @@ module.exports = async (req, res, next) => {
   try {
     const authHeader = req.header("Authorization");
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res
-        .status(401)
-        .json({ error: "Access denied. No token provided." });
+    if (!authHeader?.startsWith("Bearer ")) {
+      return res.status(401).json({ error: "Access denied. No token provided." });
     }
 
     const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token authenticity
 
-    // Debugging log
-    console.log("🔍 Decoded Token:", decoded);
-
-    // Fetch the user from the database using Sequelize
+    // Fetch the user from the database
     const user = await User.findByPk(decoded.id);
+    if (!user) return res.status(401).json({ error: "Invalid token. User not found." });
 
-    if (!user) {
-      console.log("❌ User not found in DB!");
-      return res.status(401).json({ error: "Invalid token. User not found." });
-    }
-
-    req.user = user; // Attach user object to request
+    req.user = user; // Attach user to request for downstream usage
     next();
   } catch (error) {
-    console.error("❌ JWT Verification Error:", error.message);
+    console.error("JWT Verification Error:", error.message);
     return res.status(400).json({ error: "Invalid token" });
   }
 };

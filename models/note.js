@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       // Define association with User
       Note.belongsTo(models.User, {
         foreignKey: "userId",
-        as: "user", // Alias for the user relationship
+        as: "user", //user relationship
       });
     }
   }

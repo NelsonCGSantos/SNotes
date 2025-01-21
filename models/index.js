@@ -3,10 +3,12 @@
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
+require("dotenv").config();
+
 const process = require("process");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.json")[env] || {}; // ✅ Prevents undefined config
+const config = require("../config/database")[env] || {}; // ✅ Load database.js instead of config.json
 const db = {};
 
 let sequelize;

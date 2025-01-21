@@ -30,7 +30,7 @@ router.get("/:id", authorizeNoteAccess, getNoteById);
 router.put("/:id", authorizeNoteAccess, updateNote);
 
 // Delete a note (Only owner & Admins)
-router.delete("/:id", authorizeNoteAccess, checkRole(["admin"]), deleteNote);
+router.delete("/:id", authorizeNoteAccess, deleteNote);
 
 // Share a note with another user (Only owner)
 router.post("/:id/share", authorizeNoteAccess, shareNote);

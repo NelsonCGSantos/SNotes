@@ -18,21 +18,21 @@ module.exports = (sequelize) => {
   SharedNote.init(
     {
       id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID, // Change from INTEGER to UUID
+        defaultValue: DataTypes.UUIDV4, // Ensure UUID is generated automatically
         primaryKey: true,
       },
       noteId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: { model: "Notes", key: "id" },
-        field: "noteId", // Ensure correct mapping
+        field: "noteId",
       },
       sharedWithUserId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: { model: "Users", key: "id" },
-        field: "sharedWithUserId", // Ensure correct mapping
+        field: "sharedWithUserId",
       },
     },
     {

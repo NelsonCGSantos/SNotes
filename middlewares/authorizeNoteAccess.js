@@ -25,7 +25,7 @@ const authorizeNoteAccess = async (req, res, next) => {
 
     console.log("🔍 Owner:", isOwner, "| Shared:", Boolean(isShared)); // Log ownership and sharing status
 
-    if (isOwner || isShared) {
+    if (isOwner || (isShared && req.user.role === "admin")) {
       return next();
     } else {
       console.log("❌ Unauthorized access!");

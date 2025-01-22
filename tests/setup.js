@@ -1,16 +1,13 @@
+require("dotenv").config();
 const { sequelize } = require("../models");
 
 beforeAll(async () => {
-  await sequelize.sync();
-});
-
-beforeEach(async () => {
-  await sequelize.query("TRUNCATE TABLE sharedNotes RESTART IDENTITY CASCADE;");
-  await sequelize.query("TRUNCATE TABLE notes RESTART IDENTITY CASCADE;");
-  await sequelize.query("TRUNCATE TABLE users RESTART IDENTITY CASCADE;");
+  console.log("🔹 Connecting to Database...");
+  await sequelize.authenticate();
+  console.log("✅ Database connected.");
 });
 
 afterAll(async () => {
-  console.log("🔻 Closing Database Connection...");
+  console.log("🛑 Closing database connection...");
   await sequelize.close();
 });

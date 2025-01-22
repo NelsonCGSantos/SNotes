@@ -1,0 +1,699 @@
+{
+	"info": {
+		"_postman_id": "5f827678-8f3e-4529-a088-582bb0f55dd6",
+		"name": "speerNotes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41310411",
+		"_collection_link": "https://planetary-shadow-809587.postman.co/workspace/bd012e65-fada-48d3-8e18-4c70baa13035/collection/41310411-5f827678-8f3e-4529-a088-582bb0f55dd6?action=share&source=collection_link&creator=41310411"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"name": "cache-control",
+						"type": "text"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "<calculated when request is sent>",
+						"name": "postman-token",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"name": "content-length",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "<calculated when request is sent>",
+						"name": "host",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.39.1",
+						"name": "user-agent",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"name": "accept",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"name": "accept-encoding",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"name": "connection",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"anotheruser\",\n  \"email\": \"anotheruser@example.com\",\n  \"password\": \"Test@456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"anotheruser@example.com\",\n    \"password\": \"Test@456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Note",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"name": "cache-control",
+						"type": "text"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "<calculated when request is sent>",
+						"name": "postman-token",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"name": "content-type",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "<calculated when request is sent>",
+						"name": "content-length",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "<calculated when request is sent>",
+						"name": "host",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.39.1",
+						"name": "user-agent",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"name": "accept",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"name": "accept-encoding",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"name": "connection",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"My First Note\",\n  \"content\": \"This is my first note added via Postman.\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all notes from user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"name": "cache-control",
+						"type": "text"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "<calculated when request is sent>",
+						"name": "postman-token",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "<calculated when request is sent>",
+						"name": "host",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.39.1",
+						"name": "user-agent",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"name": "accept",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"name": "accept-encoding",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"name": "connection",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/api/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search for a Note",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/api/notes/search?q=first",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "first"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Note Deleted",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/api/notes/ceee2bee-ed7a-45db-9f7f-d3a48e1485a9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes",
+						"ceee2bee-ed7a-45db-9f7f-d3a48e1485a9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup user 2",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"newuser\",\n    \"email\": \"newuser@example.com\",\n    \"password\": \"Test@123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/signup?Content-Type=application/json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user2",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"newuser@example.com\",\n    \"password\": \"Test@123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Note from the first user",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Shared Note\",\n    \"content\": \"This note will be shared with another user.\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes"
+					],
+					"query": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"disabled": true
+						},
+						{
+							"key": "Authorization",
+							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieving notes ",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5001/api/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Note from the first user pt2",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"My First Note\",\n  \"content\": \"This is a test note\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sharing a note ",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEyYTdmNGI4LTVkN2QtNDZiOC04YWUxLTQ3NTI3OWIyZTJmNSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM3NTA4ODU2LCJleHAiOjE3Mzc1OTUyNTZ9._uu__fE1kF1ioxM1Aq5k5NPgrkT5Xv_3uRFSqEZc5Ww",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": \"e2f6b440-fd47-4638-bbb1-7ff93c7999e8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/notes/cff31cfd-1d45-4ba1-bd42-351c77f9069a/share",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"notes",
+						"cff31cfd-1d45-4ba1-bd42-351c77f9069a",
+						"share"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User 3 sign up",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"ironman\",\n  \"email\": \"ironman@avengers.com\",\n  \"password\": \"IamIronMan@3000\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user 3 login",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"ironman@avengers.com\",\n  \"password\": \"IamIronMan@3000\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
